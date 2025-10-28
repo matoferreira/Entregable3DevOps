@@ -12,7 +12,6 @@ export class TravelRequestsService {
 
   create(dto: CreateTravelRequestDto) {
     const emp = this.employeeService.getEmployeeById(dto.employeeId);
-    if (!emp) throw new BadRequestException('Employee does not exist');
 
     const request: TravelRequest = {
       id: randomUUID(),

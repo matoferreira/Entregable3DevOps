@@ -27,9 +27,9 @@ export class EmployeeService {
         if (!employee) {
             throw new NotFoundException('Employee not found');
         }
-        employee.name = dto.name;
-        employee.email = dto.email;
-        employee.phone = dto.phone;
+        if (dto.name !== undefined) employee.name = dto.name;
+        if (dto.email !== undefined) employee.email = dto.email;
+        if (dto.phone !== undefined) employee.phone = dto.phone;
         return employee;
     }
 

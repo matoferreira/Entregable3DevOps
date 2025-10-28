@@ -12,11 +12,6 @@ export class EmployeeController {
         return this.employeeService.createEmployee(createEmployeeDto);
     }
 
-    @Get(':id')
-    getEmployeeById(@Param('id') id: string) {
-        return this.employeeService.getEmployeeById(id);
-    }
-
     @Put(':id')
     updateEmployee(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
         return this.employeeService.updateEmployee(id, updateEmployeeDto);
@@ -30,5 +25,10 @@ export class EmployeeController {
     @Get()
     findAllEmployees() {
         return this.employeeService.findAllEmployees();
+    }
+
+    @Get(':id')
+    getEmployeeById(@Param('id') id: string) {
+        return this.employeeService.getEmployeeById(id);
     }
 }

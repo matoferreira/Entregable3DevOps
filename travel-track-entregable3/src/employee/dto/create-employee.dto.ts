@@ -3,9 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
-  id: string;
-
-  @IsNotEmpty()
   @IsString()
   @ApiProperty({ example: 'John Doe' })
   name: string;

@@ -23,5 +23,6 @@ export class CreateEmployeeDto {
     required: false,
   })
   @IsOptional()
+  @IsString()
   phone?: string;
 }

@@ -29,22 +29,6 @@ export class AppController {
           type: 'string',
           example: 'ok',
         },
-        timestamp: {
-          type: 'string',
-          example: '2025-11-15T12:00:00.000Z',
-        },
-        service: {
-          type: 'string',
-          example: 'travel-track-api',
-        },
-        version: {
-          type: 'string',
-          example: '1.0.0',
-        },
-        environment: {
-          type: 'string',
-          example: 'production',
-        },
       },
     },
   })

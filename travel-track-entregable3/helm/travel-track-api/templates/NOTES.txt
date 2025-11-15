@@ -1,0 +1,69 @@
+🎉 Travel Track API ha sido desplegado exitosamente!
+
+📦 Release: {{ .Release.Name }}
+🏷️  Namespace: {{ .Values.namespace.name }}
+🔢 Versión: {{ .Chart.AppVersion }}
+
+Para acceder a la aplicación:
+
+{{- if contains "NodePort" .Values.service.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Values.namespace.name }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "travel-track-api.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Values.namespace.name }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.service.type }}
+  NOTA: Puede tomar algunos minutos hasta que el LoadBalancer esté disponible.
+  
+  Puedes ver el status ejecutando:
+  kubectl get --namespace {{ .Values.namespace.name }} svc -w {{ include "travel-track-api.fullname" . }}
+  
+  Una vez disponible:
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Values.namespace.name }} {{ include "travel-track-api.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+  echo http://$SERVICE_IP:{{ .Values.service.port }}
+{{- else if contains "ClusterIP" .Values.service.type }}
+  
+  🌐 Para acceder desde tu máquina local, ejecuta:
+  
+  kubectl port-forward --namespace {{ .Values.namespace.name }} svc/{{ include "travel-track-api.fullname" . }} 3000:{{ .Values.service.port }}
+  
+  Luego accede a:
+  • API Docs: http://localhost:3000/api/docs
+  • Health: http://localhost:3000/health (si está configurado)
+{{- end }}
+
+📊 Ver el estado de los pods:
+  kubectl get pods --namespace {{ .Values.namespace.name }} -l "app.kubernetes.io/name={{ include "travel-track-api.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+📝 Ver logs:
+  kubectl logs --namespace {{ .Values.namespace.name }} -l "app.kubernetes.io/name={{ include "travel-track-api.name" . }}" -f
+
+🔄 Actualizar el despliegue:
+  helm upgrade {{ .Release.Name }} ./helm/travel-track-api --set image.tag=<nueva-version>
+
+🗑️  Desinstalar:
+  helm uninstall {{ .Release.Name }} --namespace {{ .Values.namespace.name }}
+
+{{ if .Values.autoscaling.enabled }}
+⚡ Autoscaling está HABILITADO:
+  • Min réplicas: {{ .Values.autoscaling.minReplicas }}
+  • Max réplicas: {{ .Values.autoscaling.maxReplicas }}
+  • Target CPU: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}%
+  {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
+  • Target Memory: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}%
+  {{- end }}
+{{ else }}
+📌 Réplicas fijas: {{ .Values.replicaCount }}
+{{ end }}
+
+💾 Recursos asignados:
+  • CPU Request: {{ .Values.resources.requests.cpu }}
+  • CPU Limit: {{ .Values.resources.limits.cpu }}
+  • Memory Request: {{ .Values.resources.requests.memory }}
+  • Memory Limit: {{ .Values.resources.limits.memory }}
+
+🔐 Configuración de seguridad:
+  ✓ Usuario no-root (UID: {{ .Values.podSecurityContext.runAsUser }})
+  ✓ Capabilities dropped
+  ✓ Privilege escalation disabled
+  ✓ Resource limits configurados
+
+¡Disfruta usando Travel Track API! 🚀

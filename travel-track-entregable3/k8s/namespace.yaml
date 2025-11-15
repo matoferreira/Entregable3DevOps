@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: travel-track
+  labels:
+    name: travel-track
+    environment: production

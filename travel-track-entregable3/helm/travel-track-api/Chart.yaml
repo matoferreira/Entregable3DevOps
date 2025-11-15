@@ -1,0 +1,12 @@
+apiVersion: v2
+name: travel-track-api
+description: A Helm chart for Travel Track API
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - nestjs
+  - travel
+  - api
+maintainers:
+  - name: DevOps Team

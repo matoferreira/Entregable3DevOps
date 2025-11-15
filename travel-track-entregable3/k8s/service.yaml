@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-track-api
+  namespace: travel-track
+  labels:
+    app: travel-track-api
+spec:
+  type: ClusterIP
+  selector:
+    app: travel-track-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+    protocol: TCP
+  sessionAffinity: None

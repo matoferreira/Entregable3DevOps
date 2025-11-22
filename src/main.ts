@@ -9,6 +9,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
+  const configService = app.get(ConfigService);
   const appVersion = configService.get<string>('appVersion') || '1.0.0';
   const appName = configService.get<string>('appName') || 'travel-track-api';
   const nodeEnv = configService.get<string>('nodeEnv') || 'development';

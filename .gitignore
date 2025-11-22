@@ -1,2 +1,6 @@
 node_modules
 dist
+reports/*.pdf
+reports/*.json
+!reports/npm-audit.txt
+!reports/semgrep-analysis.txt

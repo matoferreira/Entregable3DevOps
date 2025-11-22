@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-latest-tag
+  annotations:
+    policies.kyverno.io/title: "Disallow Latest Tag"
+    policies.kyverno.io/category: "Best Practices"
+    policies.kyverno.io/severity: "medium"
+    policies.kyverno.io/subject: "Pod"
+    policies.kyverno.io/description: >-
+      Requiring a tag other than 'latest' ensures that the image being used is
+      explicit and versioned. Using 'latest' can lead to unexpected behavior
+      and makes it difficult to track which version of an image is running.
+spec:
+  validationFailureAction: enforce
+  background: true
+  rules:
+    - name: check-image-tag
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+            namespaces:
+              - "travel-track"
+      validate:
+        message: "Using 'latest' tag is not allowed. Please use a specific version tag."
+        pattern:
+          spec:
+            containers:
+            - name: "*"
+              image: "!*:latest"
+

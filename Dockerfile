@@ -1,7 +1,7 @@
 # ============================================
 # Stage 1: Dependencies
 # ============================================
-FROM node:20.11.0-alpine3.19 AS deps
+FROM node:20-alpine AS deps
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN npm config set strict-ssl false && \
 # ============================================
 # Stage 2: Builder
 # ============================================
-FROM node:20.11.0-alpine3.19 AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -36,7 +36,7 @@ RUN npm run build
 # ============================================
 # Stage 3: Production
 # ============================================
-FROM node:20.11.0-alpine3.19 AS production
+FROM node:20-alpine AS production
 
 # Crear usuario no-root
 RUN addgroup -g 1001 -S nodejs && \

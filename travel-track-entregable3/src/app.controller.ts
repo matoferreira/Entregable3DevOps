@@ -33,6 +33,6 @@ export class AppController {
     },
   })
   health() {
-    return { status: 'ok' };
+    return this.appService.getHealth();
   }
 }

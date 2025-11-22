@@ -1,0 +1,103 @@
+# Configuración por defecto para el Helm Chart de Travel Track API
+
+# Configuración de réplicas
+replicaCount: 2
+
+# Configuración de la imagen
+image:
+  repository: travel-track-api
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Configuración del namespace
+namespace:
+  create: true
+  name: travel-track
+
+# ConfigMap - Variables de entorno
+config:
+  nodeEnv: production
+  port: "3000"
+  appVersion: "1.0.0"
+  appName: travel-track-api
+  logLevel: info
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Anotaciones para los pods
+podAnnotations: {}
+
+# Contexto de seguridad del pod
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  fsGroup: 1001
+
+# Contexto de seguridad del contenedor
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1001
+  capabilities:
+    drop:
+    - ALL
+
+# Configuración del Service
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+# Configuración de recursos
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Probes de salud
+livenessProbe:
+  httpGet:
+    path: /api/docs
+    port: http
+  initialDelaySeconds: 40
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /api/docs
+    port: http
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+# Autoscaling (opcional)
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}

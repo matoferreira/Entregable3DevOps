@@ -1,0 +1,33 @@
+# Valores personalizados para producción
+replicaCount: 3
+
+image:
+  repository: travel-track-api
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
+
+namespace:
+  create: true
+  name: travel-track
+
+config:
+  nodeEnv: production
+  port: "3000"
+  appVersion: "1.0.0"
+  appName: travel-track-api
+  logLevel: info
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80

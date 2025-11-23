@@ -7,14 +7,14 @@ export class CreateTravelDto {
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @IsUUID()
-  employeeId: string;
+  employeeId!: string;
 
   @ApiProperty({
     description: 'Destino del viaje',
     example: 'Montevideo, Uruguay',
   })
   @IsString()
-  destination: string;
+  destination!: string;
 
   @ApiProperty({
     description: 'Duración del viaje en días',
@@ -23,5 +23,5 @@ export class CreateTravelDto {
   })
   @IsInt()
   @IsPositive()
-  days: number;
+  days!: number;
 }

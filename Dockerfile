@@ -30,6 +30,9 @@ RUN npm config set strict-ssl false && \
 # Copiar código fuente
 COPY . .
 
+# Limpiar archivos de build incremental que pueden causar problemas
+RUN rm -f tsconfig.build.tsbuildinfo
+
 # Construir la aplicación
 RUN npm run build
 

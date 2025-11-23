@@ -6,7 +6,7 @@ replicaCount: 2
 # Configuración de la imagen
 image:
   repository: travel-track-api
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
   tag: "1.0.0"
 
 imagePullSecrets: []

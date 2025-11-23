@@ -24,7 +24,7 @@ spec:
       containers:
       - name: travel-track-api
         image: travel-track-api:1.0.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Never
         ports:
         - name: http
           containerPort: 3000

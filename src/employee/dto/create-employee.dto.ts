@@ -8,14 +8,14 @@ export class CreateEmployeeDto {
   })
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     description: 'Correo del empleado',
     example: 'john.doe@example.com',
   })
   @IsEmail()
-  email: string;
+  email!: string;
 
   @ApiProperty({
     description: 'Teléfono del empleado',

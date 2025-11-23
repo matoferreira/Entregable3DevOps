@@ -5,13 +5,13 @@ export class Employee {
         description: 'ID único del empleado',
         example: '123e4567-e89b-12d3-a456-426614174000',
     })
-    id: string;
+    id!: string;
 
     @ApiProperty({
         description: 'Nombre completo del empleado',
         example: 'John Doe',
     })
-    name: string;
+    name!: string;
 
     @ApiProperty({
         description: 'Correo electrónico del empleado',
